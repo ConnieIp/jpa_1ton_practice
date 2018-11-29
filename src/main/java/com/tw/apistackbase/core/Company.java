@@ -1,6 +1,7 @@
 package com.tw.apistackbase.core;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Company {
@@ -12,6 +13,16 @@ public class Company {
 
     @OneToOne(cascade = CascadeType.ALL)
     private CompanyProfile profile;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+    private List<Employee> employees;
+
+    public Company() {
+    }
+
+    public Company(String name) {
+        this.name = name;
+    }
 
     public CompanyProfile getProfile() {
         return profile;
@@ -37,10 +48,11 @@ public class Company {
         this.name = name;
     }
 
-    public Company() {
+    public List<Employee> getEmployees() {
+        return employees;
     }
 
-    public Company(String name) {
-        this.name = name;
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }
